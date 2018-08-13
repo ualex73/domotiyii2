@@ -1,0 +1,58 @@
+<?php
+use yii\helpers\Html;
+use yii\bootstrap\ActiveForm;
+use yii\widgets\Pjax;
+/*
+use kartik\grid\GridView; 
+*/
+use yii\grid\GridView;
+?>
+    <?php $form = ActiveForm::begin([ 'enableClientValidation' => true,
+                'options'                => [
+                    'id'      => 'dynamic-form'
+                 ]]);
+                ?>
+
+<?php Pjax::begin(['enablePushState' => false]); ?>
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+'columns' => [
+/*
+        ['class' => 'yii\grid\SerialColumn'],
+*/
+           [
+                    'attribute'=>'device',
+                    'format'=>'raw',
+                    'value' => function($data)
+                    {
+/*
+                        return
+                        Html::a($data['device'], ['/settings/cul','serialport'=>2], ['title' => 'View','class'=>'no-pjax']);
+*/
+                        return
+                        Html::a($data['device'], null, ['onclick'=>'approveWeekly("'.$data['device'].'")']);
+                    }
+            ],
+ [
+                'label'=>'Select',
+                'format'=>'raw',
+                 'value'=> function($model, $key, $index, $column) { return Html::button(Yii::t('app','Select'), ['value' => $model['device'], 'class' => 'btn btn-primary btn-xs', 'onclick'=>'approveWeekly(value)']); }
+/*
+                 'value'=> function($model, $key, $index, $column) { return var_dump($model['device']); }
+*/
+/*
+                 'value'=> function($model, $key, $index, $column) { return Html::button('Select', ['value' => 'approve-w', 'class' => 'btn btn-success', 'onclick'=>'approveWeekly(value)']); }
+*/
+            ],
+            'by-id',
+            'inuseby',
+/*
+*/
+    ],
+
+]) ?>
+<?php Pjax::end(); ?>
+
+       <?php echo Html::submitButton('Send', ['class' => 'btn btn-success']) ?>
+        <button type="button" class="btn btn-default">Close</button>
+      <?php ActiveForm::end(); ?>

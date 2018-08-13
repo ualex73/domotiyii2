@@ -1,0 +1,113 @@
+<?php
+
+use yii\helpers\Html;
+/*
+use kartik\widgets\ActiveForm;
+use kartik\form\ActiveField;
+*/
+use app\components\ActiveForm;
+use app\components\ActiveField;
+use yii\helpers\Url;
+use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
+
+/* $this->title = 'CUL Settings'; */
+/* $this->params['breadcrumbs'] = [['label' => 'CUL', 'url' => 'indexPlugins'],'alex']; */
+
+/* @var $this yii\web\View */
+/* @var $model app\models\SettingsCul */
+/* @var $form ActiveForm */
+?>
+<div class="settings-cul">
+
+    <legend>CUL - CC1101 USB Lite
+        <?php
+            /* Only show instancelist if we support multiple instances */
+            if ($instancelist) {
+                echo Html::dropDownList('category', $model->id, $instancelist, ['style' => 'float:right;', 'class' => 'form-group', 'onchange' => 'myFunction("'.Url::to(['']).'",this.value);']);
+            }
+        ?>
+    </legend>
+
+    <?php $form = ActiveForm::begin(['layout' => 'horizontal']); ?>
+
+        <div class="hide">
+            <?= $form->field($model, 'id') ?>
+        </div>
+
+        <?= $form->field($model, 'enabled')->checkbox() ?>
+        <?= $form->field($model, 'type')->dropDownList(['serial' => 'serial', 'tcp' => 'tcp'],['onchange'=>'switchType(this.value);']) ?>
+        <?= $form->field($model, 'tcphost')->textInput(['id' => 'tcphost', 'class'=>'form-control', 'readonly' => ($model->type == 'tcp')? false : true]) ?>
+        <?= $form->field($model, 'tcpport')->textInput(['type' => 'number', 'id' => 'tcpport', 'readonly' => ($model->type == 'tcp')? false : true]) ?>
+        <?= $form->field($model, 'baudrate')->dropDownList(['9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200'],['id' => 'baudrate', 'disabled' => ($model->type == 'serial')? false : true]) ?>
+        <?= $form->field($model, 'model')->dropDownList(['1' => 'CUL', '2' => 'CUN', '3' => 'CUNO', '4' => 'CUR']) ?>
+        <?= $form->field($model, 'fhtid'
+,['addon' => ['append' => ['content'=>'...']]]
+)->textInput(['type' => 'number']) ?>
+        <?= $form->field($model, 'fhtid'
+,['addon' => ['append' => ['content' => Html::button('Go', ['class'=>'btn btn-primary']), 'button' => true]]]
+)->textInput(['type' => 'number']) ?>
+        <?= $form->field($model, 'debug')->checkbox()  ?>
+
+        <legend></legend>
+
+        <?= $form->field($model, 'serialport')->textInput(['id' => 'serialport', 'class'=>'form-control domotiyii2-w150', 'readonly' => ($model->type == 'serial')? false : true]) ?>
+
+<?= Html::button('Create List', ['id' => 'modelButton', 'value' => \yii\helpers\Url::to(['/settings/serialport']), 'class' => 'btn btn-success']) ?>
+
+<?php
+
+Modal::begin([
+            'header' => '<h4>SerialPort</h4>',
+            'id'     => 'model',
+            'size'   => 'model-lg',
+'closeButton' => [
+                  'label' => 'Close',
+                  'class' => 'btn btn-info btn-sm pull-right',
+                ],
+
+    ]);
+    
+    echo "<div id='modelContent'></div>";
+    
+    Modal::end();
+
+?>
+
+        <legend></legend>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+            <?= Html::submitButton(Yii::t('app', 'Submit'), ['class' => 'btn btn-primary']) ?>
+<!--
+$model->isNewRecord
+-->
+            <?= Html::resetButton('Reset', ['class' => 'btn btn-default', 'onclick'=>"switchType(\"".$model->type."\");"]) ?>
+            </div>
+        </div>
+    <?php ActiveForm::end(); ?>
+
+</div><!-- settings-cul -->
+
+<?php
+$this->registerJs(<<<JS
+$(function(){
+    $('#modelButton').click(function(){
+        $('.modal').modal('show')
+            .find('#modelContent')
+            .load($(this).attr('value'));
+    });
+});
+JS
+);
+?>
+
+<?php
+$this->registerJs(<<<JS
+        $(document).on('ready pjax:success', function() {
+//alert('alex2');
+            });
+JS
+);
+?>
+
