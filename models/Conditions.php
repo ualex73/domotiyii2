@@ -30,6 +30,7 @@ class Conditions extends \app\components\ActiveRecord
         return [
             [['description', 'formula'], 'string'],
             [['name'], 'string', 'max' => 64],
+            [['name','formula'],'required'],
         ];
     }
 

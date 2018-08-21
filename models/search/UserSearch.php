@@ -59,10 +59,10 @@ class UserSearch extends Users
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
+//            'id' => $this->id,
             'admin' => $this->admin,
-            'options' => $this->options,
-            'tfaenabled' => $this->tfaenabled,
+////            'options' => $this->options,
+////            'tfaenabled' => $this->tfaenabled,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

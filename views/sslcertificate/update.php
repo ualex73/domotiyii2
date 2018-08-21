@@ -13,8 +13,16 @@ $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="sslcertificates-update">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../sslcertificate/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../sslcertificate/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+            <a href="../sslcertificate/view?id=<?=$model->id?>" class="btn btn-primary"><span class="fa fa-info-circle"></span> View</a>
+            <a href="../sslcertificate/update?id=<?=$model->id?>" class="btn btn-info"><span class="fa fa-pencil-alt"></span> Edit</a>
+            <a href="#" class="btn btn-danger"><span class="fa fa-trash"></span> Delete</a>
+        </div>
+    </jumbotron>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <?= $this->render('_form', [
         'model' => $model,

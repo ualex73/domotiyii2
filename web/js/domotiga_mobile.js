@@ -77,9 +77,10 @@ $(function() {
     // Finnaly check on result: 
     // If failed set the button to red. 
     function getDeviceUpdates(){
+        var url='https://localhost/domtogia-yii2/web/mobile/get-device-update';
         $.ajax({
             type: "GET",        
-            url: "getdeviceupdate",
+            url: url,
             data: {location: GetURLParameter("location") }
         }).always( function (json_data, textStatus, errorThrown) {
             var error = false;            

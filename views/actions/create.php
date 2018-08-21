@@ -11,8 +11,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Actions'), 'url' => 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="actions-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../actions/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../actions/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+        </div>
+    </jumbotron>
+    <legend><?= Html::encode($this->title) ?></legend>
 
     <?= $this->render('_form', [
         'model' => $model,

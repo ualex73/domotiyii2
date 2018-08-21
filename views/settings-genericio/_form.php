@@ -21,14 +21,14 @@ use kartik\form\ActiveForm;
     <?= $form->field($model, 'enabled')->checkbox() ?>
     <?= $form->field($model, 'type')->dropDownList(['serial' => 'serial', 'tcp' => 'tcp'],['onchange'=>'switchType(this);']) ?>
 
-    <?= $form->field($model, 'tcphost')->textInput(['maxlength' => true,['options'=> 'disabled']]) ?>
+    <?= $form->field($model, 'tcphost')->textInput(['maxlength' => true,'readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcphost']) ?>
 
-    <?= $form->field($model, 'tcpport')->textInput() ?>
+    <?= $form->field($model, 'tcpport')->input('number',['readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcpport']) ?>
 
 
-    <?= $form->field($model, 'serialport')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'serialport')->textInput(['maxlength' => true,'class'=>'span5', 'readonly'=>($model->type == 'serial')? false : true, 'id'=>'serialport']) ?>
 
-    <?= $form->field($model, 'baudrate')->dropDownList(['9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200']) ?>
+    <?= $form->field($model, 'baudrate')->dropDownList(['4800' => '4800', '9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200'],['readonly'=>($model->type == 'serial')? false : true, 'id'=>'baudrate']) ?>
 
     <?= $form->field($model, 'regex')->textInput(['maxlength' => true]) ?>
 

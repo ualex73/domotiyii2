@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "devices".
  *
@@ -59,6 +59,7 @@ class Devices extends \app\components\ActiveRecord
             [['firstseen', 'lastseen', 'lastchanged'], 'safe'],
             [['enabled', 'hide', 'tampered', 'switchable', 'dimable', 'extcode', 'repeatstate', 'reset', 'poll'], 'boolean'],
             [['comments', 'resetvalue'], 'string'],
+            [['name','address','devicetype_id','interface_id'],'required'],
             [['name', 'address'], 'string', 'max' => 64],
             [['onicon', 'officon', 'dimicon', 'batterystatus'], 'string', 'max' => 32],
             [['groups'], 'string', 'max' => 128],
@@ -75,33 +76,114 @@ class Devices extends \app\components\ActiveRecord
             'instance_id' => Yii::t('app', 'Instance ID'),
             'name' => Yii::t('app', 'Name'),
             'address' => Yii::t('app', 'Address'),
-            'devicetype_id' => Yii::t('app', 'Devicetype ID'),
-            'location_id' => Yii::t('app', 'Location ID'),
+            'devicetype_id' => Yii::t('app', 'Device Type '),
+            'location_id' => Yii::t('app', 'Location'),
             'onicon' => Yii::t('app', 'Onicon'),
             'officon' => Yii::t('app', 'Officon'),
             'dimicon' => Yii::t('app', 'Dimicon'),
-            'interface_id' => Yii::t('app', 'Interface ID'),
+            'interface_id' => Yii::t('app', 'Interface'),
             'firstseen' => Yii::t('app', 'Firstseen'),
             'lastseen' => Yii::t('app', 'Lastseen'),
             'enabled' => Yii::t('app', 'Enabled'),
-            'hide' => Yii::t('app', 'Hide'),
+            'hide' => Yii::t('app', 'Hide device'),
             'groups' => Yii::t('app', 'Groups'),
             'batterystatus' => Yii::t('app', 'Batterystatus'),
             'tampered' => Yii::t('app', 'Tampered'),
             'comments' => Yii::t('app', 'Comments'),
-            'switchable' => Yii::t('app', 'Switchable'),
-            'dimable' => Yii::t('app', 'Dimable'),
-            'extcode' => Yii::t('app', 'Extcode'),
+            'switchable' => Yii::t('app', 'Device can be switched'),
+            'dimable' => Yii::t('app', 'Device can be dimmed'),
+            'extcode' => Yii::t('app', 'Supports extended X10'),
             'x' => Yii::t('app', 'X'),
             'y' => Yii::t('app', 'Y'),
             'floorplan_id' => Yii::t('app', 'Floorplan ID'),
             'lastchanged' => Yii::t('app', 'Lastchanged'),
-            'repeatstate' => Yii::t('app', 'Repeatstate'),
-            'repeatperiod' => Yii::t('app', 'Repeatperiod'),
-            'reset' => Yii::t('app', 'Reset'),
-            'resetperiod' => Yii::t('app', 'Resetperiod'),
-            'resetvalue' => Yii::t('app', 'Resetvalue'),
-            'poll' => Yii::t('app', 'Poll'),
+            'repeatstate' => Yii::t('app', 'Repeat state enabled'),
+            'repeatperiod' => Yii::t('app', 'Repeat period'),
+            'reset' => Yii::t('app', 'Reset status enabled'),
+            'resetperiod' => Yii::t('app', 'Reset period'),
+            'resetvalue' => Yii::t('app', 'Reset value'),
+            'poll' => Yii::t('app', 'Poll device(Z-Wave Only)'),
         ];
+    }
+
+    public function getDeviceType()
+    {
+        return $this->hasOne(Devicetypes::className(), ['id' => 'devicetype_id']);
+    }
+
+    public function getLocation()
+    {
+        return $this->hasOne(Locations::className(), ['id' => 'location_id']);
+    }
+
+    public function getInterface()
+    {
+        return $this->hasOne(Plugins::className(), ['id' => 'interface_id']);
+    }
+
+    public function getDeviceValue1()
+    {
+        return $this->hasOne(DeviceValues::className(), ['device_id' => 'id'])->where([ 'valuenum' => 1]);
+    }
+
+    public function getDeviceValue2()
+    {
+        return $this->hasOne(DeviceValues::className(), ['device_id' => 'id'])->where([ 'valuenum' => 2]);
+    }
+
+    public function getDeviceValue3()
+    {
+        return $this->hasOne(DeviceValues::className(), ['device_id' => 'id'])->where([ 'valuenum' => 3]);
+    }
+
+    public function getDeviceValue4()
+    {
+        return $this->hasOne(DeviceValues::className(), ['device_id' => 'id'])->where([ 'valuenum' => 4]);
+    }
+
+    public function getFloors()
+    {
+        return ArrayHelper::map(Floors::find()->orderBy('name')->all(), 'id', 'name');
+    }
+
+    public function getLocations()
+    {
+        return ArrayHelper::map(Locations::find()->orderBy('name')->all(), 'id', 'name');
+    }
+
+    public function getGroups()
+    {
+        return ArrayHelper::map(Groups::find()->orderBy('name')->all(), 'id', 'name');
+    }
+
+
+    public function getIcons() {
+        $lst = glob('../web/icons/*.*');
+        $listSelect = array();
+        $listSelect[""] = "";
+        foreach ($lst as $l) {
+            $l = str_replace('../web/icons/', '', $l);
+            $listSelect[$l] = $l;
+        }
+        return $listSelect;
+    }
+    public function getSPdevice() {
+        if ($this->devicetype_id == 243)
+            return TRUE;
+        else if (strpos($this->deviceValue1->value, 'SP ') === 0)
+            return TRUE;
+        else
+            return FALSE;
+    }
+    public function getIconsOptions() {
+        $lst = glob('../web/icons/*.*');
+        $listSelect = array();
+        $listSelect[""] = "";
+        foreach ($lst as $l) {
+            $l = str_replace('../web/icons/', '', $l);
+            $option[$l] = array("data-image" => '/domotiyii/static/icons/' . $l);
+        }
+        $options["options"] = $option;
+        return $options;
     }
 }

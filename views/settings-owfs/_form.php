@@ -23,7 +23,8 @@ use kartik\form\ActiveForm;
 
     <?= $form->field($model, 'basedir')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'polltime')->textInput() ?>
+    <?= $form->field($model, 'polltime',[
+        'addon' => ['append' => ['content'=>'Seconds']]])->textInput() ?>
     <?= $form->field($model, 'cached')->checkbox() ?>
 
     <?= $form->field($model, 'debug')->checkbox() ?>

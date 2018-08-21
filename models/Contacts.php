@@ -47,6 +47,7 @@ class Contacts extends \app\components\ActiveRecord
             [['birthday', 'firstseen', 'lastseen'], 'safe'],
             [['holidaycard'], 'boolean'],
             [['comments'], 'string'],
+            ['name','required'],
             [['callnr', 'type'], 'integer'],
             [['name', 'cidphone', 'cidmobile'], 'string', 'max' => 64],
             [['address', 'city', 'country', 'phoneno', 'mobileno', 'email', 'firstname', 'surname'], 'string', 'max' => 32],

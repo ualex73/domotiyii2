@@ -11,46 +11,87 @@ $this->title = Yii::t('app', 'Graphs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="graphs-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../graph/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../graph/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+        </div>
+    </jumbotron>
+    <div class="search-form" style="display: none">
+        <?php
+        $model= new \app\models\Graphs();
+        echo $this->render('_search',['model'=>$model]
+        ); ?>
+    </div>
+    <div class="clearfix"></div>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Graphs'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+//            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute'=>'enabled',
+                'label'=>Yii::t('app','Enabled'),
+                'value'=>function($data){
+                    if($data->enabled==1){
+                        return '<span class="fa fa-check"></span>';
+                    }
+                },
+                'format'=>'raw',
+            ],
+//            'id',
             'name',
-            'enabled',
-            'comments',
-            'graph_title',
-            //'graph_height',
-            //'graph_width',
-            //'color_background',
-            //'color_canvas',
-            //'color_shadea',
-            //'color_shadeb',
-            //'color_font',
-            //'color_grid',
-            //'color_majorgrid',
-            //'color_frame',
-            //'color_axis',
-            //'color_arrow',
-            //'unit',
-            //'logarithmic_scale',
-            //'date',
-            //'grid_type',
-            //'groups',
+
+            [
+                'attribute'=>  'type',
+                'format'=>'raw',
+                'value'=>function($data){
+                    return $data->getGraphType($data->type);
+                }
+            ],
+            'description',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.search-button').click(function () {
+            $('.search-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+        $('.create-button').click(function () {
+            $('.search-button').hide();
+            $('.search-form').hide();
+            $('.create-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+    });
+</script>
+<style>
+    table{
+        margin-top:10px;
+    }
+</style>

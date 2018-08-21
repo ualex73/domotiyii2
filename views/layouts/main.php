@@ -19,9 +19,9 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css"
+    <link rel="stylesheet" href="<?php echo Yii::$app->request->baseUrl;?>/css/solid.css"
           integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css"
+    <link rel="stylesheet" href="<?php echo Yii::$app->request->baseUrl;?>/css/fontawesome.css"
           integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
@@ -31,6 +31,7 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <div class="wrap">
+
     <?php
     NavBar::begin([
         'brandLabel' => Yii::$app->name,
@@ -271,39 +272,58 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="container">
+    <div class="">
         <br>
         <br>
         <br>
         <br>
         <br>
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <? /*= Alert::widget() */ ?>
 
-        <?php //Get all flash messages and loop through them ?>
-        <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+        <div class="col-md-2">
             <?php
-            echo \kartik\widgets\Growl::widget([
-                'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
-                //'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
-                'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
-                'body' => (!empty($message)) ? Html::encode($message) : 'Message Not Set!',
-                'showSeparator' => true,
-                'delay' => 1, //This delay is how long before the message shows
-                'pluginOptions' => [
-                    'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
-                    'placement' => [
-                        'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
-                        'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
-                    ]
-                ]
+            echo Nav::widget([
+                'options' => ['class' => 'sidebar'],
+                'items' => [
+                    ['label' => Yii::t('app', 'Devices'), 'url' =>Yii::$app->user->isGuest ?['site/login']:['/device/index'],],
+                    ['label' => Yii::t('app', 'Control Table'),'url' => Yii::$app->user->isGuest ?['site/login']:['/control/table'],],
+                    ['label' => Yii::t('app', 'Control Box'), 'url' =>Yii::$app->user->isGuest ?['site/login']: ['/control/list'],],
+                    ['label' => Yii::t('app', 'Camera Viewer'), 'url' => Yii::$app->user->isGuest ?['site/login']:['/cameraviewer/index'],],
+                    ['label' => Yii::t('app', 'Graphs'), 'url' =>Yii::$app->user->isGuest ?['site/login']: ['/graphs/index'],],
+                    ['label' => Yii::t('app', 'Phone Calls'), 'url' => Yii::$app->user->isGuest ?['site/login']:['/cdr/index'],],
+                    ['label' => Yii::t('app', 'Log Files'), 'url' => Yii::$app->user->isGuest ?['site/login']:[ '/logs/index'],],
+                    ['label' => Yii::t('app', 'Help',['class'=>'fa-flag']), 'url' => ['/site/help'],],
+                ],
             ]);
             ?>
-        <?php endforeach; ?>
+        </div>
+        <div class="col-md-10">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <? /*= Alert::widget() */ ?>
 
+            <?php //Get all flash messages and loop through them ?>
+            <?php foreach (Yii::$app->session->getAllFlashes() as $message):; ?>
+                <?php
+                echo \kartik\widgets\Growl::widget([
+                    'type' => (!empty($message['type'])) ? $message['type'] : 'danger',
+                    //'title' => (!empty($message['title'])) ? Html::encode($message['title']) : 'Title Not Set!',
+                    'icon' => (!empty($message['icon'])) ? $message['icon'] : 'fa fa-info',
+                    'body' => (!empty($message)) ? Html::encode($message) : 'Message Not Set!',
+                    'showSeparator' => true,
+                    'delay' => 1, //This delay is how long before the message shows
+                    'pluginOptions' => [
+                        'delay' => (!empty($message['duration'])) ? $message['duration'] : 3000, //This delay is how long the message shows for
+                        'placement' => [
+                            'from' => (!empty($message['positonY'])) ? $message['positonY'] : 'top',
+                            'align' => (!empty($message['positonX'])) ? $message['positonX'] : 'right',
+                        ]
+                    ]
+                ]);
+                ?>
+            <?php endforeach; ?>
         <?= $content ?>
+        </div>
     </div>
 </div>
 
@@ -366,6 +386,10 @@ AppAsset::register($this);
         -webkit-border-radius: 6px 0 6px 6px;
         -moz-border-radius: 6px 0 6px 6px;
         border-radius: 6px 0 6px 6px;
+    }
+    form div.required label.control-label:after {
+        content:" * ";
+        color:red;
     }
 </style>
 <script>

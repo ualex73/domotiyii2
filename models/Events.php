@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "events".
@@ -25,6 +27,38 @@ use Yii;
  */
 class Events extends \app\components\ActiveRecord
 {
+
+    /**
+     * @return dropdownlist with the list of triggers
+     */
+    public function getAllTriggers()
+    {
+        return ArrayHelper::map(Triggers::find()->orderBy('name')->all(), 'id', 'name');
+    }
+
+    /**
+     * @return dropdownlist with the list of conditions
+     */
+    public function getAllConditions()
+    {
+        return ArrayHelper::map(Conditions::find()->orderBy('name')->all(), 'id', 'name');
+    }
+
+    /**
+     * @return dropdownlist with the list of actions
+     */
+    public function getAllActions()
+    {
+        return ArrayHelper::map(Actions::find()->orderBy('name')->all(), 'id', 'name');
+    }
+
+    /**
+     * @return dropdownlist with the list of categories
+     */
+    public function getAllCategories()
+    {
+        return ArrayHelper::map(Category::find()->orderBy('name')->all(), 'id', 'name');
+    }
     /**
      * @inheritdoc
      */
@@ -42,6 +76,7 @@ class Events extends \app\components\ActiveRecord
             [['enabled', 'log', 'rerunenabled'], 'boolean'],
             [['firstrun', 'lastrun'], 'safe'],
             [['comments'], 'string'],
+            [['name','trigger_id'],'required'],
             [['trigger_id', 'condition1_id', 'condition2_id', 'rerunvalue', 'category_id'], 'integer'],
             [['name'], 'string', 'max' => 64],
             [['operand', 'reruntype'], 'string', 'max' => 16],
@@ -61,14 +96,20 @@ class Events extends \app\components\ActiveRecord
             'firstrun' => Yii::t('app', 'Firstrun'),
             'lastrun' => Yii::t('app', 'Lastrun'),
             'comments' => Yii::t('app', 'Comments'),
-            'trigger_id' => Yii::t('app', 'Trigger ID'),
+            'trigger_id' => Yii::t('app', 'Trigger'),
             'condition1_id' => Yii::t('app', 'Condition1 ID'),
             'operand' => Yii::t('app', 'Operand'),
             'condition2_id' => Yii::t('app', 'Condition2 ID'),
-            'rerunenabled' => Yii::t('app', 'Rerunenabled'),
-            'rerunvalue' => Yii::t('app', 'Rerunvalue'),
-            'reruntype' => Yii::t('app', 'Reruntype'),
-            'category_id' => Yii::t('app', 'Category ID'),
+            'rerunenabled' => Yii::t('app', 'Don\'t rerun event if it already ran in last:'),
+            'rerunvalue' => Yii::t('app', ''),
+            'reruntype' => Yii::t('app', ''),
+            'category_id' => Yii::t('app', 'Category'),
         ];
     }
+
+    public function getTrigger()
+    {
+        return $this->hasOne(Triggers::className(), ['id' => 'trigger_id']);
+    }
+
 }

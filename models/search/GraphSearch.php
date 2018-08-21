@@ -18,8 +18,8 @@ class GraphSearch extends Graphs
     public function rules()
     {
         return [
-            [['id', 'enabled', 'graph_height', 'graph_width', 'color_background', 'color_canvas', 'color_shadea', 'color_shadeb', 'color_font', 'color_grid', 'color_majorgrid', 'color_frame', 'color_axis', 'color_arrow', 'logarithmic_scale', 'date'], 'integer'],
-            [['name', 'comments', 'graph_title', 'unit', 'grid_type', 'groups'], 'safe'],
+            [['id', 'device_value_01', 'device_value_02', 'device_value_03', 'device_value_04', 'graph_width', 'graph_height'], 'integer'],
+            [['name', 'enabled', 'type', 'group', 'description', 'created_date'], 'safe'],
         ];
     }
 
@@ -60,29 +60,20 @@ class GraphSearch extends Graphs
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'enabled' => $this->enabled,
-            'graph_height' => $this->graph_height,
+            'device_value_01' => $this->device_value_01,
+            'device_value_02' => $this->device_value_02,
+            'device_value_03' => $this->device_value_03,
+            'device_value_04' => $this->device_value_04,
+            'created_date' => $this->created_date,
             'graph_width' => $this->graph_width,
-            'color_background' => $this->color_background,
-            'color_canvas' => $this->color_canvas,
-            'color_shadea' => $this->color_shadea,
-            'color_shadeb' => $this->color_shadeb,
-            'color_font' => $this->color_font,
-            'color_grid' => $this->color_grid,
-            'color_majorgrid' => $this->color_majorgrid,
-            'color_frame' => $this->color_frame,
-            'color_axis' => $this->color_axis,
-            'color_arrow' => $this->color_arrow,
-            'logarithmic_scale' => $this->logarithmic_scale,
-            'date' => $this->date,
+            'graph_height' => $this->graph_height,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'comments', $this->comments])
-            ->andFilterWhere(['like', 'graph_title', $this->graph_title])
-            ->andFilterWhere(['like', 'unit', $this->unit])
-            ->andFilterWhere(['like', 'grid_type', $this->grid_type])
-            ->andFilterWhere(['like', 'groups', $this->groups]);
+            ->andFilterWhere(['like', 'enabled', $this->enabled])
+            ->andFilterWhere(['like', 'type', $this->type])
+            ->andFilterWhere(['like', 'group', $this->group])
+            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

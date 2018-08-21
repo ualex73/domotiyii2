@@ -135,7 +135,7 @@ class SettingsController extends CustomController
             $rawData[] = $line;
         }
         $arrayDataProvider = new ArrayDataProvider([
-        'allModels' => $rawData,
+            'allModels' => $rawData,
             'key'=>'name',
             'id'=>'name',
             'sort' => [
@@ -145,6 +145,7 @@ class SettingsController extends CustomController
                 'pageSize' => 10,
             ],
         ]);
+
 
         return $this->render('indexModules',['dataProvider'=>$arrayDataProvider]);
     }

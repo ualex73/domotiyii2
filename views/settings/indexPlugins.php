@@ -6,16 +6,16 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="tab " role="tabpanel">
     <ul class="nav nav-tabs session-tab-ul" role="tablist">
         <?php  $currentPath=Yii::$app->request->getUrl();?>
-        <li class="session-tab-li <?php if ($currentPath == '/domoti-yii2/web/settings/index-plugin') {
+        <li class="session-tab-li <?php if ($currentPath == Yii::$app->request->baseUrl.'/settings/index-plugin') {
             echo 'active';
         }
         ?>"><a href='../settings/index-plugin'>
                 All</a></li>
-        <li class="session-tab-li <?php if ($currentPath == '/domoti-yii2/web/settings/index-plugin?filter=Enabled') {
+        <li class="session-tab-li <?php if ($currentPath == Yii::$app->request->baseUrl.'/settings/index-plugin?filter=Enabled') {
             echo 'active';
         }?>"><a href='../settings/index-plugin?filter=Enabled'>
                 Enabled</a></li>
-        <li class="session-tab-li <?php if ($currentPath == '/domoti-yii2/web/settings/index-plugin?filter=Disabled') {
+        <li class="session-tab-li <?php if ($currentPath == Yii::$app->request->baseUrl.'/settings/index-plugin?filter=Disabled') {
             echo 'active';
         }?>"><a href='../settings/index-plugin?filter=Disabled'>
                 Disabled</a></li>
@@ -44,6 +44,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ],
 ]); ?>
+<script>
+    $(document).ready(function(){
+        $('li').on('click', function(){
+            //alert('clicked');
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>
 <style>
     .tab .nav-tabs {
         padding-left: 15px;

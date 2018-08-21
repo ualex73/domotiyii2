@@ -8,7 +8,7 @@ use kartik\form\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="settings-p2000-form">
+<div class="settings-p2000-form  col-md-offset-1 col-md-4">
     <legend>P200 Scanner</legend>
     <jumbotron>
         <div style="margin-left:5px">

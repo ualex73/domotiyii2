@@ -37,6 +37,7 @@ class Scenes extends \app\components\ActiveRecord
             [['enabled', 'log'], 'boolean'],
             [['firstrun', 'lastrun'], 'safe'],
             [['comments'], 'string'],
+            [['name','location_id','event_id'],'required'],
             [['category', 'location_id', 'event_id'], 'integer'],
             [['name'], 'string', 'max' => 64],
         ];
@@ -56,8 +57,31 @@ class Scenes extends \app\components\ActiveRecord
             'lastrun' => Yii::t('app', 'Lastrun'),
             'comments' => Yii::t('app', 'Comments'),
             'category' => Yii::t('app', 'Category'),
-            'location_id' => Yii::t('app', 'Location ID'),
-            'event_id' => Yii::t('app', 'Event ID'),
+            'location_id' => Yii::t('app', 'Location'),
+            'event_id' => Yii::t('app', 'Event'),
         ];
     }
+    public function getEvents()
+    {
+        return $this->hasOne(Events::className(),['id'=>'event']);
+    }
+
+    /**
+     * @return dropdownlist with the list of locations
+     */
+    public function getLocations()
+    {
+        return $this->hasOne(Locations::className(),['id'=>'location']);
+    }
+
+    /**
+     * @return dropdownlist with the list of scenes
+     */
+    public function getCategories()
+    {
+        return $this->hasOne(Category::className(),['id'=>'categories']);
+    }
+
+
+
 }

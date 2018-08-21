@@ -44,6 +44,7 @@ class Users extends \app\components\ActiveRecord
             [['fullname', 'lastlogin', 'emailaddress'], 'string', 'max' => 32],
             [['tfasecret'], 'string', 'max' => 16],
             [['username'], 'unique'],
+            [['username','password'],'required']
         ];
     }
 

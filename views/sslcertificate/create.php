@@ -11,8 +11,13 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Sslcertificates'), '
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="sslcertificates-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../sslcertificate/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../sslcertificate/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+               </div>
+    </jumbotron>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <?= $this->render('_form', [
         'model' => $model,

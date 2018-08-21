@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Devices;
 use app\models\search\DeviceSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -36,8 +37,45 @@ class DeviceController extends Controller
     public function actionIndex()
     {
         $searchModel = new DeviceSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $model=new Devices();
 
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $type = Yii::$app->getRequest()->get('type');
+        $res = Devices::find();
+        if (isset($type) && !empty($type)) {
+            if ($type == "sensors") {
+
+                $searchModel->switchable = 0;
+                $searchModel->dimable = 0;
+                $searchModel->enabled = -1;
+                $res->andWhere(['switchable'=>0]);
+                $res->andWhere(['dimable'=>0]);
+                $res->andWhere(['enabled'=> -1]);
+
+            } elseif ($type == "dimmers") {
+                $model->dimable = -1;
+                $model->enabled = -1;
+                $res->andWhere(['dimable'=>-1]);
+                $res->andWhere(['enabled'=> -1]);
+
+            } elseif ($type == "switches") {
+                $model->switchable = -1;
+                $model->enabled = -1;
+                $res->andWhere(['switchable'=>1]);
+                $res->andWhere(['enabled'=> 1]);
+            } elseif ($type == "hidden") {
+                $model->hide = -1;
+                $model->enabled = -1;
+                $res->andWhere(['hide'=>1]);
+                $res->andWhere(['enabled'=> 1]);
+            } elseif ($type == "disabled") {
+                $model->enabled = 1;
+                $res->andWhere(['enabled'=>0]);
+            }
+            $dataProvider = new ActiveDataProvider([
+                'query' => $res,
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

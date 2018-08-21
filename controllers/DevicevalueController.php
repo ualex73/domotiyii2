@@ -3,14 +3,14 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\DeviceValues;
+use app\models\Devicevalues;
 use app\models\search\DevicevalueSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DevicevalueController implements the CRUD actions for DeviceValues model.
+ * DevicevalueController implements the CRUD actions for Devicevalues model.
  */
 class DevicevalueController extends Controller
 {
@@ -30,7 +30,7 @@ class DevicevalueController extends Controller
     }
 
     /**
-     * Lists all DeviceValues models.
+     * Lists all Devicevalues models.
      * @return mixed
      */
     public function actionIndex()
@@ -45,7 +45,7 @@ class DevicevalueController extends Controller
     }
 
     /**
-     * Displays a single DeviceValues model.
+     * Displays a single Devicevalues model.
      * @param string $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class DevicevalueController extends Controller
     }
 
     /**
-     * Creates a new DeviceValues model.
+     * Creates a new Devicevalues model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new DeviceValues();
+        $model = new Devicevalues();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +76,7 @@ class DevicevalueController extends Controller
     }
 
     /**
-     * Updates an existing DeviceValues model.
+     * Updates an existing Devicevalues model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id
      * @return mixed
@@ -96,7 +96,7 @@ class DevicevalueController extends Controller
     }
 
     /**
-     * Deletes an existing DeviceValues model.
+     * Deletes an existing Devicevalues model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id
      * @return mixed
@@ -110,15 +110,15 @@ class DevicevalueController extends Controller
     }
 
     /**
-     * Finds the DeviceValues model based on its primary key value.
+     * Finds the Devicevalues model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id
-     * @return DeviceValues the loaded model
+     * @return Devicevalues the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = DeviceValues::findOne($id)) !== null) {
+        if (($model = Devicevalues::findOne($id)) !== null) {
             return $model;
         }
 

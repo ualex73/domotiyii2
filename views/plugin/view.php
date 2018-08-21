@@ -12,18 +12,15 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plugins-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <legend><?= Html::encode($this->title) ?></legend>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+    <jumbotron>
+        <div style="margin-bottom: 5px">
+            <a href="../plugin/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../plugin/view?id=<?=$model->id?>" class="btn btn-success"><span class="fa fa-info-circle"></span> View</a>
+        </div>
+    </jumbotron>
+
 
     <?= DetailView::widget([
         'model' => $model,

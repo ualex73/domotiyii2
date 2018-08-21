@@ -11,8 +11,16 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Graphs'), 'url' => [
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="graphs-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../graph/index" class="btn btn-success"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../graph/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+            <a href="../graph/create" class="btn btn-success"><span class="fa fa-plus"></span> View</a>
+            <a href="../graph/create" class="btn btn-success"><span class="fa fa-plus"></span> Edit</a>
+            <a href="../graph/create" class="btn btn-success"><span class="fa fa-plus"></span> Delete</a>
+        </div>
+    </jumbotron>
+    <h3><?= Html::encode($this->title) ?></h3>
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>

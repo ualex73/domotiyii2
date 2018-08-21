@@ -54,17 +54,17 @@ class SettingsOpenzwave extends \app\components\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'enabled' => Yii::t('app', 'Enabled'),
-            'serialport' => Yii::t('app', 'Serialport'),
-            'baudrate' => Yii::t('app', 'Baudrate'),
-            'reloadnodes' => Yii::t('app', 'Reloadnodes'),
-            'polltime' => Yii::t('app', 'Polltime'),
+            'serialport' => Yii::t('app', 'Serial port'),
+            'baudrate' => Yii::t('app', 'Baud rate'),
+            'reloadnodes' => Yii::t('app', 'Reload nodes'),
+            'polltime' => Yii::t('app', 'Poll Interval'),
             'debug' => Yii::t('app', 'Debug'),
-            'polltimesleeping' => Yii::t('app', 'Polltimesleeping'),
-            'enablepollsleeping' => Yii::t('app', 'Enablepollsleeping'),
-            'enablepolllistening' => Yii::t('app', 'Enablepolllistening'),
-            'polltimelistening' => Yii::t('app', 'Polltimelistening'),
-            'updateneighbor' => Yii::t('app', 'Updateneighbor'),
-            'enableupdateneighbor' => Yii::t('app', 'Enableupdateneighbor'),
+            'polltimesleeping' => Yii::t('app', 'Poll Interval sleeping'),
+            'enablepollsleeping' => Yii::t('app', 'Enable poll sleeping'),
+            'enablepolllistening' => Yii::t('app', 'Enable poll listening'),
+            'polltimelistening' => Yii::t('app', 'Poll Interval listening'),
+            'updateneighbor' => Yii::t('app', 'Update neighbor'),
+            'enableupdateneighbor' => Yii::t('app', 'Enable Update neighbor'),
         ];
     }
 }

@@ -6,19 +6,19 @@ use yii\bootstrap\NavBar;
 $this->title = Yii::t('app', 'All');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="tab " role="tabpanel">
+<div class="tab" id="module-tab" role="tabpanel">
     <ul class="nav nav-tabs session-tab-ul" role="tablist">
         <?php $currentPath = Yii::$app->request->getUrl(); ?>
-        <li class="session-tab-li <?php if ($currentPath == '/domoti-yii2/web/settings/index-module') {
+        <li class="session-tab-li <?php if ($currentPath == Yii::$app->request->baseUrl.'/settings/index-module') {
             echo 'active';
         }
         ?>"><a href='../settings/index-module'>
                 All</a></li>
-        <li class="session-tab-li <?php if ($currentPath == '/domoti-yii2/web/settings/index-module?filter=Enabled') {
+        <li class="session-tab-li <?php if ($currentPath == Yii::$app->request->baseUrl.'/settings/index-module?filter=Enabled') {
             echo 'active';
         } ?>"><a href='../settings/index-module?filter=Enabled'>
                 Enabled</a></li>
-        <li class="session-tab-li <?php if ($currentPath == '/domoti-yii2/web/settings/index-module?filter=Disabled') {
+        <li class="session-tab-li <?php if ($currentPath == Yii::$app->request->baseUrl.'/settings/index-module?filter=Disabled') {
             echo 'active';
         } ?>"><a href='../settings/index-module?filter=Disabled'>
                 Disabled</a></li>
@@ -46,6 +46,15 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ],
 ]); ?>
+<script>
+    $(document).ready(function(){
+        $('li').on('click', function(){
+            //alert('clicked');
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+</script>
 <style>
     .tab .nav-tabs {
         padding-left: 15px;

@@ -18,7 +18,7 @@ return [
     'versionDBRequired'=>'1.0.025',
 
     // base path to domotiga
-    'basePathDomotiGa'=>'/home/aakuiper/domotiga/',
+    'basePathDomotiGa'=>'/home/<changethis>/domotiga/',
 
     // default refresh values per gridview (5000 = 5 seconds)
     'refreshDevices'=>'5000',

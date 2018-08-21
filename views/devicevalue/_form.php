@@ -9,52 +9,50 @@ use kartik\form\ActiveForm;
 ?>
 
 <div class="devicevalues-form col-md-offset-1 col-md-4">
-
+    <p>Fields with <span style="color: red">*</span>  are required.</p>
     <?php $form = ActiveForm::begin([
         'type' => ActiveForm::TYPE_HORIZONTAL,
         'formConfig' => ['labelSpan' => 4, 'deviceSize' => ActiveForm::SIZE_SMALL]
 
     ]);  ?>
 
-    <?= $form->field($model, 'device_id')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'device_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Devices::find()->all(),'id','name'),['prompt'=>'Select']) ?>
 
     <?= $form->field($model, 'valuenum')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'value')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'correction')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'units')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'log')->textInput() ?>
-
-    <?= $form->field($model, 'logdisplay')->textInput() ?>
-
-    <?= $form->field($model, 'logspeak')->textInput() ?>
-
-    <?= $form->field($model, 'rrd')->textInput() ?>
-
-    <?= $form->field($model, 'graph')->textInput() ?>
-
+    <?= $form->field($model, 'value')->textInput() ?>
+    
+    <?= $form->field($model, 'units')->dropDownList(['°' => '°', '°C' => '°C', '°F' => '°F', '%' => '%', '€' => '€', '$' => '$', 'Amp' => 'Amp', 'Count' => 'Count', 'hPa' => 'hPa', 'Volt' => 'Volt', 'kWh' => 'kWh', 'km/h' => 'km/h', 'kg' => 'kg', 'W' => 'W', 'Wh' => 'Wh', 'Watt' => 'Watt', 'W/m2' => 'W/m2', 'Level' => 'Level', 'lb' => 'lb', 'lux' => 'lux', 'RSSI' => 'RSSI', 'm/s' => 'm/s', 'mbar' => 'mbar', 'mm' => 'mm', 'mm/hr' => 'mm/hr', 'm3' => 'm3', 'ppm' => 'ppm']) ?>
     <?= $form->field($model, 'valuerrddsname')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'valuerrdtype')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'valuerrdtype')->dropDownList(['GAUGE' => 'GAUGE', 'COUNTER' => 'COUNTER', 'DERIVE' => 'DERIVE', 'ABSOLUTE' => 'ABSOLUTE']) ?>
+    <?= $form->field($model, 'correction')->textInput() ?>
 
+    <?= $form->field($model, 'log')->checkbox() ?>
+
+    <?= $form->field($model, 'logdisplay')->checkbox() ?>
+
+    <?= $form->field($model, 'logspeak')->checkbox() ?>
+
+    <?= $form->field($model, 'rrd')->checkbox() ?>
+
+    <?= $form->field($model, 'graph')->checkbox() ?>
+
+  
     <?= $form->field($model, 'lastchanged')->textInput() ?>
 
     <?= $form->field($model, 'lastseen')->textInput() ?>
+    
+    <?= $form->field($model, 'feedback')->checkbox() ?>
 
+    <?= $form->field($model, 'control')->checkbox() ?>
     <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'type_id')->textInput() ?>
-
-    <?= $form->field($model, 'feedback')->textInput() ?>
-
-    <?= $form->field($model, 'control')->textInput() ?>
 
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-9">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
         </div>
     </div>
 

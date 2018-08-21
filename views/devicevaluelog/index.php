@@ -12,22 +12,26 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="devicevalueslog-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../devicevaluelog/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="#" class="btn btn-warning search-button"><span class="fa fa-search"></span> Search</a>
+            <a href="../devicevaluelog/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+        </div>
+    </jumbotron>
+    <div class="search-form" style="display: none">
+        <?php
+        $searchmodel= new \app\models\search\DevicevaluelogSearch();
+        echo $this->render('_search',['model'=>$searchmodel]
+        ); ?>
+    </div>
+    <div class="clearfix"></div>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Devicevalueslog'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'device_id',
+           'id',
+            'device.name',
             'valuenum',
             'value:ntext',
             'lastchanged',
@@ -37,3 +41,38 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.search-button').click(function () {
+            $('.search-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+        $('.create-button').click(function () {
+            $('.search-button').hide();
+            $('.search-form').hide();
+            $('.create-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+    });
+</script>
+<style>
+    table{
+        margin-top:10px;
+    }
+</style>

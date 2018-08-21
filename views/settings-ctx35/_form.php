@@ -27,7 +27,7 @@ use kartik\form\ActiveForm;
         'addon' => ['append' => ['content'=>'mS']]
     ])->input('number') ?>
 
-    <?= $form->field($model, 'globalx10')->textInput() ?>
+    <?= $form->field($model, 'globalx10')->checkbox() ?>
 
     <?= $form->field($model, 'debug')->checkbox() ?>
 

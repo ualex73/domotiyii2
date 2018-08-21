@@ -1,24 +1,24 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\search\ContactSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="contacts-search">
-
+<div class="contacts-search col-md-offset-1 col-md-4" style="margin-bottom: 10px;margin-top: 10px">
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
         'options' => [
             'data-pjax' => 1
         ],
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+        'formConfig' => ['labelSpan' => 4, 'deviceSize' => ActiveForm::SIZE_SMALL]
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'name') ?>
 
@@ -30,11 +30,11 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'country') ?>
 
-    <?php // echo $form->field($model, 'phoneno') ?>
+    <?php  echo $form->field($model, 'phoneno') ?>
 
-    <?php // echo $form->field($model, 'mobileno') ?>
+    <?php  echo $form->field($model, 'mobileno') ?>
 
-    <?php // echo $form->field($model, 'email') ?>
+    <?php  echo $form->field($model, 'email') ?>
 
     <?php // echo $form->field($model, 'cidphone') ?>
 

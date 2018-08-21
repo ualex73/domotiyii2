@@ -29,7 +29,7 @@ class DeviceValuesLog extends \app\components\ActiveRecord
     public function rules()
     {
         return [
-            [['device_id', 'valuenum'], 'required'],
+            [['device_id', 'valuenum','value'], 'required'],
             [['device_id', 'valuenum'], 'integer'],
             [['value'], 'string'],
             [['lastchanged'], 'safe'],
@@ -43,10 +43,15 @@ class DeviceValuesLog extends \app\components\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'device_id' => Yii::t('app', 'Device ID'),
-            'valuenum' => Yii::t('app', 'Valuenum'),
+            'device_id' => Yii::t('app', 'Device Number'),
+            'valuenum' => Yii::t('app', 'Value Number'),
             'value' => Yii::t('app', 'Value'),
-            'lastchanged' => Yii::t('app', 'Lastchanged'),
+            'lastchanged' => Yii::t('app', 'Last changed'),
         ];
+    }
+
+    public function getDevice()
+    {
+        return $this->hasOne(Devices::className(), ['id' => 'device_id']);
     }
 }

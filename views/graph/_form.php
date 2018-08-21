@@ -9,58 +9,27 @@ use kartik\form\ActiveForm;
 ?>
 
 <div class="graphs-form col-md-offset-1 col-md-4">
-
+    <p class="note">Fields with <span style="color:red">*</span> are required.</p>
     <?php $form = ActiveForm::begin([
         'type' => ActiveForm::TYPE_HORIZONTAL,
         'formConfig' => ['labelSpan' => 4, 'deviceSize' => ActiveForm::SIZE_SMALL]
 
     ]);  ?>
 
+
+    <?= $form->field($model, 'enabled')->checkbox() ?>
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'enabled')->textInput() ?>
+    <?= $form->field($model, 'type')->dropDownList($model->getChartTypes()) ?>
 
-    <?= $form->field($model, 'comments')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'graph_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'graph_height')->textInput() ?>
-
-    <?= $form->field($model, 'graph_width')->textInput() ?>
-
-    <?= $form->field($model, 'color_background')->textInput() ?>
-
-    <?= $form->field($model, 'color_canvas')->textInput() ?>
-
-    <?= $form->field($model, 'color_shadea')->textInput() ?>
-
-    <?= $form->field($model, 'color_shadeb')->textInput() ?>
-
-    <?= $form->field($model, 'color_font')->textInput() ?>
-
-    <?= $form->field($model, 'color_grid')->textInput() ?>
-
-    <?= $form->field($model, 'color_majorgrid')->textInput() ?>
-
-    <?= $form->field($model, 'color_frame')->textInput() ?>
-
-    <?= $form->field($model, 'color_axis')->textInput() ?>
-
-    <?= $form->field($model, 'color_arrow')->textInput() ?>
-
-    <?= $form->field($model, 'unit')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'logarithmic_scale')->textInput() ?>
-
-    <?= $form->field($model, 'date')->textInput() ?>
-
-    <?= $form->field($model, 'grid_type')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'groups')->textInput(['maxlength' => true]) ?>
-
+    <?= $form->field($model, 'device_value_01')->dropDownList($model->getDeviceValues()) ?>
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-9">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
         </div>
     </div>
 

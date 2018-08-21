@@ -8,33 +8,39 @@ use yii\widgets\Pjax;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Contacts');
-$this->params['breadcrumbs'][] = $this->title;
-?>
+$this->params['breadcrumbs'][] = $this->title;?>
 <div class="contacts-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../contact/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="#" class="btn btn-warning search-button"><span class="fa fa-search"></span> Search</a>
+            <a href="../contact/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+        </div>
+    </jumbotron>
+    <div class="search-form" style="display: none">
+        <?php
+        $model= new \app\models\search\ContactSearch();
+        echo $this->render('_search',['model'=>$model]
+        ); ?>
+    </div>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Contacts'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+//        'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+//            'id',
             'name',
             'address',
             'zipcode',
             'city',
             //'country',
-            //'phoneno',
-            //'mobileno',
-            //'email:email',
+            'phoneno',
+            'mobileno',
+            'email:email',
             //'cidphone',
             //'cidmobile',
             //'birthday',
@@ -52,3 +58,38 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.search-button').click(function () {
+            $('.search-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+        $('.create-button').click(function () {
+            $('.search-button').hide();
+            $('.search-form').hide();
+            $('.create-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+    });
+</script>
+<style>
+    table{
+        margin-top:10px;
+    }
+</style>

@@ -27,6 +27,8 @@ use kartik\form\ActiveForm;
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-9">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+
+        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
         </div>
     </div>
 

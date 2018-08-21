@@ -9,7 +9,7 @@ use kartik\form\ActiveForm;
 ?>
 
 <div class="users-form col-md-offset-1 col-md-4">
-
+    <p class="note">Fields with <span style="color:red">*</span> are required.</p>
     <?php $form = ActiveForm::begin([
         'type' => ActiveForm::TYPE_HORIZONTAL,
         'formConfig' => ['labelSpan' => 4, 'deviceSize' => ActiveForm::SIZE_SMALL]
@@ -21,20 +21,15 @@ use kartik\form\ActiveForm;
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'fullname')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'emailaddress')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'admin')->textInput() ?>
 
-    <?= $form->field($model, 'comments')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'admin')->checkbox() ?>
+
+    <?= $form->field($model, 'comments')->textarea(['rows' => 2]) ?>
 
     <?= $form->field($model, 'lastlogin')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'emailaddress')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'cookie')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tfasecret')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tfaenabled')->textInput() ?>
 
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-9">

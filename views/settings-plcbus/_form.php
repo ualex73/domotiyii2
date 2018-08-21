@@ -16,25 +16,27 @@ use kartik\form\ActiveForm;
 
     ]);  ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
 
-    <?= $form->field($model, 'enabled')->textInput() ?>
+    <?= $form->field($model, 'enabled')->checkbox() ?>
 
     <?= $form->field($model, 'serialport')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'baudrate')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'baudrate')->dropDownList(['9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200']) ?>
 
-    <?= $form->field($model, 'polltime')->textInput() ?>
+
+    <?= $form->field($model, 'polltime',[
+        'addon' => ['append' => ['content'=>'Seconds']]
+    ])->input('number') ?>
 
     <?= $form->field($model, 'usercode')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'threephase')->textInput() ?>
+
 
     <?= $form->field($model, 'housecodes')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'threephase')->checkbox() ?>
+    <?= $form->field($model, 'ack')->checkbox() ?>
 
-    <?= $form->field($model, 'ack')->textInput() ?>
-
-    <?= $form->field($model, 'debug')->textInput() ?>
+    <?= $form->field($model, 'debug')->checkbox() ?>
 
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-9">

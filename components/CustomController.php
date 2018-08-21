@@ -119,6 +119,51 @@ class CustomController extends \yii\web\Controller
             }
         }
     }
+    public function getChartDetails($deviceid, $valuenum, $charttype) {
+print_r("if");die;
+        // Create sql to get the chart details
+        if ($charttype == 1) {
+            $sql = "select dv.valuerrddsname as chartname,
+			dvl.value as chartvalue,
+			dv.device_id as device
+			from device_values dv
+			inner join device_values_log dvl 
+				on dv.device_id = dvl.device_id 
+				and dv.valuenum = dvl.valuenum
+			where dv.device_id = " . $deviceid . "
+			and dv.valuenum = " . $valuenum . "
+			group by dv.valuerrddsname,
+			dvl.value";
+        } else {
+            $sql = "select now()";
+        }
 
+        // execute query
+        $list = Yii::$app->db->createCommand($sql)->queryAll();
+
+        $rs = array();
+        foreach ($list as $item) {
+            $row = array(
+                'chartname' => $item['chartname'],
+                'chartvalue' => $item['chartvalue'],
+                'device' => $item['device']
+            );
+            $rs[] = $row;
+        }
+        return $rs;
+    }
+    public function getLocation($name) {
+        // Create all the yiiGraphs
+        $sql = "SELECT l.id FROM locations l WHERE l.name ='" . $name . "';";
+
+        // execute query
+        $list = Yii::$app->db->createCommand($sql)->queryAll();
+
+        $rs = array();
+        foreach ($list as $item) {
+            $rs[] = $item['id'];
+        }
+        return $rs;
+    }
 }
 

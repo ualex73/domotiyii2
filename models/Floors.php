@@ -28,6 +28,7 @@ class Floors extends \app\components\ActiveRecord
     {
         return [
             [['name', 'image'], 'string', 'max' => 32],
+            ['name','required']
         ];
     }
 

@@ -12,8 +12,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="deviceblacklist-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <jumbotron>
+        <div>
+            <a href="../deviceblacklist/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../deviceblacklist/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+        </div>
+    </jumbotron>
+    <legend><?= Html::encode($this->title) ?></legend>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

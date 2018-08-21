@@ -59,8 +59,8 @@ class DeviceValues extends \app\components\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'device_id' => Yii::t('app', 'Device ID'),
-            'valuenum' => Yii::t('app', 'Valuenum'),
+            'device_id' => Yii::t('app', 'Device Number'),
+            'valuenum' => Yii::t('app', 'Device Value'),
             'value' => Yii::t('app', 'Value'),
             'correction' => Yii::t('app', 'Correction'),
             'units' => Yii::t('app', 'Units'),
@@ -78,5 +78,10 @@ class DeviceValues extends \app\components\ActiveRecord
             'feedback' => Yii::t('app', 'Feedback'),
             'control' => Yii::t('app', 'Control'),
         ];
+    }
+
+    public function getDevice()
+    {
+        return $this->hasOne(Devices::className(), ['id' => 'device_id']);
     }
 }

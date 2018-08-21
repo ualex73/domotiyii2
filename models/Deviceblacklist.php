@@ -43,7 +43,7 @@ class Deviceblacklist extends \app\components\ActiveRecord
             'blid' => Yii::t('app', 'Blid'),
             'address' => Yii::t('app', 'Address'),
             'comments' => Yii::t('app', 'Comments'),
-            'id' => Yii::t('app', 'ID'),
+            'id' => Yii::t('app', 'Interface'),
         ];
     }
 }

@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\SettingsOpenzwave */
 
-$this->title = Yii::t('app', 'Update Settings Openzwave: ' . $model->id, [
+$this->title = Yii::t('app', 'Open-Zwave', [
     'nameAttribute' => '' . $model->id,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Settings Openzwaves'), 'url' => ['index']];
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="settings-openzwave-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <legend><?= Html::encode($this->title) ?></legend>
 
     <?= $this->render('_form', [
         'model' => $model,

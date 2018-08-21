@@ -12,7 +12,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="locations-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../location/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../location/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+        </div>
+    </jumbotron>
 
     <?= $this->render('_form', [
         'model' => $model,

@@ -32,6 +32,7 @@ class Devicetypes extends \app\components\ActiveRecord
             [['name', 'description'], 'string', 'max' => 64],
             [['protocol'], 'string', 'max' => 32],
             [['addressformat'], 'string', 'max' => 128],
+            [['name','addressformat','protocol'],'required'],
         ];
     }
 

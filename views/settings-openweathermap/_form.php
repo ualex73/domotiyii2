@@ -8,7 +8,7 @@ use kartik\form\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="settings-openweathermap-form">
+<div class="settings-openweathermap-form  col-md-offset-1 col-md-4">
     <legend>OpenWeatherMap</legend>
     <jumbotron>
         <div style="margin-right: 5px">

@@ -6,11 +6,17 @@ use kartik\form\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\SettingsRazberry */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 
 <div class="settings-razberry-form col-md-offset-1 col-md-4">
 
     <legend>RaZberry</legend>
+    <jumbotron>
+        <div style="margin-right: 5px;">
+            <a target="_blank" href="http://<?= $model->tcphost;?>:<?=$model->tcpport;?>" class="btn btn-warning" ><span class="fa fa-globe"></span> Your RaZberry</a>
+        </div>
+    </jumbotron>
     <?php $form = ActiveForm::begin([
         'type' => ActiveForm::TYPE_HORIZONTAL,
         'formConfig' => ['labelSpan' => 4, 'deviceSize' => ActiveForm::SIZE_SMALL]

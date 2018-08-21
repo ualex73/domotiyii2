@@ -12,13 +12,20 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="plugins-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <jumbotron>
+        <div>
+            <a href="../plugin/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="#" class="btn btn-warning search-button"><span class="fa fa-search"></span> Search</a>
+        </div>
+    </jumbotron>
+    <div class="search-form" style="display: none">
+        <?php
+        $modelSearch= new \app\models\search\PluginSearch();
+        echo $this->render('_search',['model'=>$modelSearch]
+        ); ?>
+    </div>
+    <div class="clearfix"></div>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Plugins'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,14 +33,56 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            'name',
             'interface',
             'protocols',
-            'name',
-            'type',
 
-            ['class' => 'yii\grid\ActionColumn'],
+
+            ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view}',//{download}
+                'buttons' => [
+                    'update' => function ($url, $model, $key) {
+
+                        return \yii\helpers\Html::a('',   ['view','id'=>$model->id], ['class' => 'glyphicon glyphicon-eye', 'title' => 'View', 'style' => 'margin-right:10px']);
+                    },
+                ],
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $('.search-button').click(function () {
+            $('.search-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+        $('.create-button').click(function () {
+            $('.search-button').hide();
+            $('.search-form').hide();
+            $('.create-form').slideToggle('fast');
+            return false;
+        });
+        $('.search-form form').submit(function () {
+            $.fn.yiiGridView.update('all-contacts-grid', {
+                data: $(this).serialize()
+            });
+            return false;
+        });
+
+    });
+</script>
+<style>
+    table{
+        margin-top:10px;
+    }
+</style>

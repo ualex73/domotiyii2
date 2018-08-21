@@ -1,16 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\search\SceneSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="scenes-search">
+<div class="scenes-search  col-md-offset-1 col-md-6">
 
     <?php $form = ActiveForm::begin([
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+        'formConfig' => ['labelSpan' => 4, 'deviceSize' => ActiveForm::SIZE_SMALL],
         'action' => ['index'],
         'method' => 'get',
         'options' => [
@@ -18,29 +20,16 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'enabled') ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true],['class'=>'required']) ?>
+    <?= $form->field($model, 'category')->dropDownList(\yii\helpers\ArrayHelper::map(\app\models\Category::find()->all(),'id','name'),['prompt'=>'Select']) ?>
 
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'log') ?>
-
-    <?= $form->field($model, 'firstrun') ?>
-
-    <?php // echo $form->field($model, 'lastrun') ?>
-
-    <?php // echo $form->field($model, 'comments') ?>
-
-    <?php // echo $form->field($model, 'category') ?>
-
-    <?php // echo $form->field($model, 'location_id') ?>
-
-    <?php // echo $form->field($model, 'event_id') ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <div class="col-sm-offset-4 col-sm-9">
+            <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('app', 'Reset'), 'index',['class' => 'btn btn-default']) ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>

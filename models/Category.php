@@ -27,6 +27,7 @@ class Category extends \app\components\ActiveRecord
     {
         return [
             [['name'], 'string', 'max' => 100],
+            [['name'],'required'],
         ];
     }
 

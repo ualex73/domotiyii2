@@ -24,7 +24,7 @@ use kartik\form\ActiveForm;
 
     <?= $form->field($model, 'command')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'monitor')->textInput() ?>
+    <?= $form->field($model, 'monitor')->checkbox() ?>
 
     <?= $form->field($model, 'globalx10')->checkbox() ?>
 

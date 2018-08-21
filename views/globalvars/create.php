@@ -11,9 +11,20 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Globalvars'), 'url' 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="globalvars-create">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+    <jumbotron>
+        <div>
+            <a href="../globalvars/index" class="btn btn-default"><span class="fa fa-list-alt"></span> List</a>
+            <a href="../globalvars/create" class="btn btn-success"><span class="fa fa-plus"></span> Create</a>
+        </div>
+    </jumbotron>
+    <div class="search-form" style="display: none">
+        <?php
+        $model= new \app\models\Globalvars();
+        echo $this->render('_search',['model'=>$model]
+        ); ?>
+    </div>
+    <h3><?= Html::encode($this->title) ?></h3>
+<hr>
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

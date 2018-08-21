@@ -9,7 +9,7 @@ use app\models\Devices;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="settings-pvoutput-form">
+<div class="settings-pvoutput-form col-md-offset-1 col-md-4">
 <legend>PVOutput</legend> <jumbotron>
         <div style="margin-right: 5px">
             <a href="http://www.pvoutput.org/list.jsp?sid='.<?= $model->pvoutputid?>" target="_blank" class="btn btn-success">Your PVOutput Page</a>

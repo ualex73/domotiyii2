@@ -37,7 +37,7 @@ class Graphs extends \app\components\ActiveRecord
      */
     public static function tableName()
     {
-        return 'graphs';
+        return 'yii_graphs';
     }
 
     /**
@@ -46,7 +46,7 @@ class Graphs extends \app\components\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'graph_title', 'graph_height', 'graph_width', 'color_background', 'color_canvas', 'color_shadea', 'color_shadeb', 'color_font', 'color_grid', 'color_majorgrid', 'color_frame', 'color_axis', 'color_arrow', 'unit', 'date', 'grid_type'], 'required'],
+            [['name', 'type'], 'required'],
             [['enabled', 'logarithmic_scale', 'date'], 'boolean'],
             [['graph_height', 'graph_width', 'color_background', 'color_canvas', 'color_shadea', 'color_shadeb', 'color_font', 'color_grid', 'color_majorgrid', 'color_frame', 'color_axis', 'color_arrow'], 'integer'],
             [['name', 'comments', 'graph_title', 'grid_type'], 'string', 'max' => 32],
@@ -64,25 +64,104 @@ class Graphs extends \app\components\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'enabled' => Yii::t('app', 'Enabled'),
-            'comments' => Yii::t('app', 'Comments'),
-            'graph_title' => Yii::t('app', 'Graph Title'),
-            'graph_height' => Yii::t('app', 'Graph Height'),
-            'graph_width' => Yii::t('app', 'Graph Width'),
-            'color_background' => Yii::t('app', 'Color Background'),
-            'color_canvas' => Yii::t('app', 'Color Canvas'),
-            'color_shadea' => Yii::t('app', 'Color Shadea'),
-            'color_shadeb' => Yii::t('app', 'Color Shadeb'),
-            'color_font' => Yii::t('app', 'Color Font'),
-            'color_grid' => Yii::t('app', 'Color Grid'),
-            'color_majorgrid' => Yii::t('app', 'Color Majorgrid'),
-            'color_frame' => Yii::t('app', 'Color Frame'),
-            'color_axis' => Yii::t('app', 'Color Axis'),
-            'color_arrow' => Yii::t('app', 'Color Arrow'),
-            'unit' => Yii::t('app', 'Unit'),
-            'logarithmic_scale' => Yii::t('app', 'Logarithmic Scale'),
-            'date' => Yii::t('app', 'Date'),
-            'grid_type' => Yii::t('app', 'Grid Type'),
-            'groups' => Yii::t('app', 'Groups'),
+            'type'=> Yii::t('app','Type')
         ];
+    }
+    public function getChartTypes()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(0=>'None', 1=>'Bar chart', 2=>'Line chart', 3=>'Gauge');
+    }
+
+    private $graphtype = array(
+        '0' => 'None',
+        '1' => 'Bar Graph',
+        '2' => 'Line Graph',
+        '3' => 'Gauge Widget',
+    );
+
+    /**
+     * @return graphname for $graph
+     */
+    public function getGraphType($graph) {
+        return isset($this->graphtype[$graph]) ? Yii::t('app',$this->graphtype[$graph]) : null;
+    }
+
+    /*
+      This functions returns an array with the devicevalue details.
+     */
+    public function getDeviceValues() {
+
+        // Create sql to get the devicevalue details.
+        // We only get enabled devices and the log option must be enabled on the device_value!
+        $sql = "select d.id as DeviceID,
+				d.name,
+				dv.id as DeviceValueID,
+				dv.valuenum,
+				dv.value,
+				concat( d.name, ' - ', dv.valuenum , ' - ' , dv.value) as Description
+			FROM domotiga.devices d
+			inner join domotiga.device_values dv on d.id = dv.device_id 
+			where d.enabled = -1
+			and dv.log = -1";
+
+        // execute query
+        $list = Yii::$app->db->createCommand($sql)->queryAll();
+
+        $rs = array();
+        foreach ($list as $item) {
+            $rs[$item['DeviceValueID']] = $item['Description'];
+        }
+        $rs[0] = 'None';
+        ksort($rs);
+
+        return $rs;
+    }
+    public static function getChartDetails($deviceid, $valuenum, $charttype) {
+        // Create sql to get the chart details
+        if ($charttype == 1) {
+            $sql = "select dv.valuerrddsname as chartname,
+			dvl.value as chartvalue,
+			dv.device_id as device
+			from device_values dv
+			inner join device_values_log dvl 
+				on dv.device_id = dvl.device_id 
+				and dv.valuenum = dvl.valuenum
+			where dv.device_id = " . $deviceid . "
+			and dv.valuenum = " . $valuenum . "
+			group by dv.valuerrddsname,
+			dvl.value";
+        } else {
+            $sql = "select now()";
+        }
+
+        // execute query
+        $list = Yii::$app->db->createCommand($sql)->queryAll();
+        print_r($list);die;
+        $rs = array();
+        foreach ($list as $item) {
+            $row = array(
+                'chartname' => $item['chartname'],
+                'chartvalue' => $item['chartvalue'],
+                'device' => $item['device']
+            );
+            $rs[] = $row;
+        }
+        return $rs;
+    }
+
+    public function getLocation($name) {
+        // Create all the yiiGraphs
+        $sql = "SELECT l.id FROM locations l WHERE l.name ='" . $name . "';";
+
+        // execute query
+        $list = Yii::$app->db->createCommand($sql)->queryAll();
+
+        $rs = array();
+        foreach ($list as $item) {
+            $rs[] = $item['id'];
+        }
+        return $rs;
     }
 }

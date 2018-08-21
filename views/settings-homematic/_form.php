@@ -27,7 +27,7 @@ use kartik\form\ActiveForm;
 
     <?= $form->field($model, 'type')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'model')->textInput() ?>
+    <?= $form->field($model, 'model')->checkbox() ?>
 
     <?= $form->field($model, 'tcpport')->textInput() ?>
 

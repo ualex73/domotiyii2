@@ -51,9 +51,9 @@ class SettingsPlcbus extends \app\components\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'enabled' => Yii::t('app', 'Enabled'),
-            'serialport' => Yii::t('app', 'Serialport'),
-            'baudrate' => Yii::t('app', 'Baudrate'),
-            'polltime' => Yii::t('app', 'Polltime'),
+            'serialport' => Yii::t('app', 'Serial port'),
+            'baudrate' => Yii::t('app', 'Baud rate'),
+            'polltime' => Yii::t('app', 'Poll Interval'),
             'usercode' => Yii::t('app', 'Usercode'),
             'threephase' => Yii::t('app', 'Threephase'),
             'housecodes' => Yii::t('app', 'Housecodes'),

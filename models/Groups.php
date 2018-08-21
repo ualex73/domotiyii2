@@ -27,6 +27,7 @@ class Groups extends \app\components\ActiveRecord
     {
         return [
             [['name'], 'string', 'max' => 32],
+            ['name','required']
         ];
     }
 

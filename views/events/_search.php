@@ -1,16 +1,18 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use kartik\form\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\search\EventsSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="events-search">
+<div class="events-search col-md-offset-1 col-md-6">
 
     <?php $form = ActiveForm::begin([
+        'type' => ActiveForm::TYPE_HORIZONTAL,
+        'formConfig' => ['labelSpan' => 4, 'deviceSize' => ActiveForm::SIZE_SMALL],
         'action' => ['index'],
         'method' => 'get',
         'options' => [
@@ -18,21 +20,13 @@ use yii\widgets\ActiveForm;
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'enabled') ?>
-
     <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'log') ?>
-
-    <?= $form->field($model, 'firstrun') ?>
 
     <?php // echo $form->field($model, 'lastrun') ?>
 
     <?php // echo $form->field($model, 'comments') ?>
 
-    <?php // echo $form->field($model, 'trigger_id') ?>
+    <?php  echo $form->field($model, 'trigger_id')->dropDownList($model->getAllTriggers(),['prompt'=>'Select']) ?>
 
     <?php // echo $form->field($model, 'condition1_id') ?>
 
@@ -46,11 +40,13 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'reruntype') ?>
 
-    <?php // echo $form->field($model, 'category_id') ?>
+    <?php  echo $form->field($model, 'category_id')->dropDownList($model->getAllCategories(),['prompt'=>'Select']) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton(Yii::t('app', 'Reset'), ['class' => 'btn btn-default']) ?>
+        <div class="col-sm-offset-4 col-sm-9">
+            <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>
+            <?= Html::a(Yii::t('app', 'Reset'), 'index',['class' => 'btn btn-default']) ?>
+        </div>
     </div>
 
     <?php ActiveForm::end(); ?>
