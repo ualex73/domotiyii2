@@ -3,9 +3,14 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
+$basePath = dirname(__DIR__);
+$webroot = dirname($basePath);
+
 $config = [
     'id' => 'basic',
-    'basePath' => dirname(__DIR__),
+    'basePath' => $basePath,
+    'runtimePath' => $webroot . '/runtime',
+    'vendorPath' => $webroot . '/vendor',
     'bootstrap' => ['log'],
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
