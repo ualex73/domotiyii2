@@ -143,7 +143,7 @@ class Devices extends \app\components\ActiveRecord
 
     public function getFloors()
     {
-        return ArrayHelper::map(Floors::find()->orderBy('name')->all(), 'id', 'name');
+        return ArrayHelper::map(Floors::find()->orderBy('name')->all(), 'floor', 'name');
     }
 
     public function getLocations()
@@ -176,12 +176,13 @@ class Devices extends \app\components\ActiveRecord
             return FALSE;
     }
     public function getIconsOptions() {
-        $lst = glob('../web/icons/*.*');
+        $lst = glob('icons/*.*');
         $listSelect = array();
         $listSelect[""] = "";
+
         foreach ($lst as $l) {
-            $l = str_replace('../web/icons/', '', $l);
-            $option[$l] = array("data-image" => '/domotiyii/static/icons/' . $l);
+            $l = str_replace('icons/', '', $l);
+            $option[$l] = array("data-image" => '/domotiyii2/static/icons/' . $l);
         }
         $options["options"] = $option;
         return $options;
