@@ -17,7 +17,7 @@ use kartik\form\ActiveForm;
 
     ]);  ?>
 
-    <?= $form->field($model, 'enabled')->textInput() ?>
+    <?= $form->field($model, 'enabled')->checkbox() ?>
 
     <?= $form->field($model, 'command')->textInput(['maxlength' => true]) ?>
 
@@ -27,7 +27,7 @@ use kartik\form\ActiveForm;
 
     <?= $form->field($model, 'readtime')->textInput() ?>
 
-    <?= $form->field($model, 'debug')->textInput() ?>
+    <?= $form->field($model, 'debug')->checkbox() ?>
 
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-9">

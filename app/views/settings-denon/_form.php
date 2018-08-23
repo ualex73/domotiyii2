@@ -17,7 +17,7 @@ use kartik\form\ActiveForm;
 
     ]);  ?>
 
-    <?= $form->field($model, 'enabled')->textInput() ?>
+    <?= $form->field($model, 'enabled')->checkbox() ?>
     <?= $form->field($model, 'type')->dropDownList(['serial' => 'serial', 'tcp' => 'tcp'],['onchange'=>'switchType(this);']) ?>
 
     <?= $form->field($model, 'tcphost')->textInput(['maxlength' => true,'readonly'=>($model->type == 'serial')? true : false, 'id'=>'tcphost']) ?>
@@ -29,7 +29,7 @@ use kartik\form\ActiveForm;
 
     <?= $form->field($model, 'baudrate')->dropDownList(['9600' => '9600', '19200' => '19200', '38400' => '38400', '57600' => '57600', '115200' => '115200'],['readonly'=>($model->type == 'serial')? false : true, 'id'=>'baudrate']) ?>
 
-    <?= $form->field($model, 'debug')->textInput() ?>
+    <?= $form->field($model, 'debug')->checkbox() ?>
 
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-9">

@@ -16,7 +16,7 @@ use kartik\form\ActiveForm;
 
     ]);  ?>
 
-    <?= $form->field($model, 'enabled')->textInput() ?>
+    <?= $form->field($model, 'enabled')->checkbox() ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
