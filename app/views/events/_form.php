@@ -43,7 +43,7 @@ use kartik\form\ActiveForm;
 
         <?= $form->field($model, 'rerunenabled')->checkbox() ?>
 
-        <?= $form->field($model, 'rerunvalue')->textInput() ?>
+        <?= $form->field($model, 'rerunvalue')->input('number') ?>
 
         <?= $form->field($model, 'reruntype')->dropDownList(['gb.Second' => 'Seconds', 'gb.Minute' => 'Minutes', 'gb.Hour' => 'Hours', 'gb.Day' => 'Days', 'gb.Month' => 'Months', 'gb.Quarter' => 'Quarters', 'gb.Year' => 'Years']) ?>
     </span>
