@@ -30,7 +30,8 @@ use yii\helpers\ArrayHelper;
             <span class="main-form" style="display: none">
                 <?= $form->field($model, 'enabled')->checkbox() ?>
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'instance_id')->dropDownList(ArrayHelper::map(\app\models\Devicetypes::find()->groupBy('protocol')->all(), 'id', 'protocol'),['prompt'=>'Select']) ?>
+            <?= $form->field($model, 'instance_id')->input('number') ?>
+            <?= $form->field($model, 'protocol')->dropDownList(ArrayHelper::map(\app\models\Devicetypes::find()->select('protocol')->distinct()->orderBy('protocol')->all(), 'protocol', 'protocol'),['prompt'=>'Select']) ?>
             <?= $form->field($model, 'devicetype_id')->dropDownList(ArrayHelper::map(\app\models\Devicetypes::find()->orderBy('name')->all(), 'id', 'name'),['prompt'=>'Select']) ?>
             <?= $form->field($model, 'interface_id')->dropDownList(ArrayHelper::map(\app\models\Plugins::find()->orderBy('name')->all(), 'id', 'name'),['prompt'=>'Select']) ?>
             <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>

@@ -49,7 +49,6 @@ class ControlController extends \yii\web\Controller {
         $results = $res->all();
         $tab = [];
 
-
         foreach ($results as $obj) {
 
             $row = array(
@@ -58,10 +57,10 @@ class ControlController extends \yii\web\Controller {
                 $obj->name,
                 $obj->location->name,
                 $this->getActions($obj),
-                $obj->deviceValue1->value,
-                $obj->deviceValue2->value,
-                $obj->deviceValue3->value,
-                $obj->deviceValue4->value,
+		isset($obj->deviceValue1) ? $obj->deviceValue1->value : '',
+		isset($obj->deviceValue2) ? $obj->deviceValue2->value : '',
+		isset($obj->deviceValue3) ? $obj->deviceValue3->value : '',
+		isset($obj->deviceValue4) ? $obj->deviceValue4->value : '',
                 $obj['lastchanged'],
             );
 

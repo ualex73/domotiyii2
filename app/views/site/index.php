@@ -4,13 +4,13 @@
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-$this->title = 'My Yii Application';
+$this->title = Yii::$app->name;
 ?>
 <div class="site-index">
     <div class="jumbotron">
         <h1>DomotiGa</h1>
 
-        <p class="lead">This is a new web client build from scratch using the Yii framework together with the Yiistrap extension to add the bootstrap look and feel.</p>
+        <p class="lead">This is a new web client build from scratch using the Yii2 framework.</p>
 
     </div>
 

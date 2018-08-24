@@ -42,6 +42,11 @@ use yii\helpers\ArrayHelper;
 class Devices extends \app\components\ActiveRecord
 {
     /**
+     * used by protocol combobox inside device editor
+     */
+    public $protocol;
+
+    /**
      * @inheritdoc
      */
     public static function tableName()
